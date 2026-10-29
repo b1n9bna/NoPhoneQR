@@ -2,7 +2,11 @@
   <h1 align="center">📱❌ NoPhoneQR</h1>
   <p align="center">
     <strong>Stop pointing your phone at your computer screen.</strong><br>
-    告别对着电脑屏幕举手机扫码的尴尬 —— 屏幕二维码免掏手机一键解析与跳转。
+    Instant on-screen QR code scanner, URL sanitizer & automatic browser opener for desktop.
+  </p>
+  <p align="center">
+    <a href="README.md"><b>English</b></a> •
+    <a href="README_zh.md">简体中文</a>
   </p>
   <p align="center">
     <a href="https://github.com/b1n9bna/NoPhoneQR/releases"><img src="https://img.shields.io/github/v/release/b1n9bna/NoPhoneQR?style=flat-square" alt="Release"></a>
@@ -17,135 +21,139 @@
 
 ---
 
-## 💡 为什么需要 NoPhoneQR？(Why NoPhoneQR?)
+## 💡 Why NoPhoneQR?
 
-我们在电脑上办公或浏览网页时，经常遇到屏幕上的二维码：
-- 网页、技术文档、GitHub 项目中的链接二维码
-- 微信公众号、掘金、知乎文章中的参考资料或原文链接
-- 2FA 两步验证绑定的 `otpauth://` 密钥二维码
-- 咖啡厅、办公区 Wi-Fi 分享二维码
+Whenever you encounter a QR code on your computer screen:
+- Links in documentation, articles, or GitHub repositories
+- Login / 2FA two-factor authentication setup (`otpauth://`)
+- Wi-Fi credentials shared on screen
+- Short links in social media or slide presentations
 
-### ⚡ 效率终极对决 (The Showdown)
+### ⚡ The Ultimate Showdown
 
-| 维度 | ❌ 传统手机扫码方式 | ⚡ 使用 NoPhoneQR |
+| Dimension | ❌ Traditional Phone Method | ⚡ With NoPhoneQR |
 | :--- | :--- | :--- |
-| **操作流程** | 掏手机 ➜ 解锁 ➜ 找微信扫一扫 ➜ 对准屏幕 ➜ 复制 ➜ 发文件传输助手 ➜ 电脑点开 (7步) | **全局快捷键 ➜ 鼠标框选 ➜ 网页秒开 (1步)** |
-| **整体耗时** | **~35 秒**（繁琐费力，心流彻底被打断） | **~0.8 秒**（毫秒直达，丝滑从容） |
-| **链接纯净度** | 携带大量广告跟踪参数 (`utm_*`, `spm_*`, `chksm`) | **自动剥离所有跟踪尾巴，保护隐私** |
-| **重定向处理**| 遭遇知乎、QQ 等中转拦截跳转页 | **智能展开真实目标网址，直接跳过拦截** |
-| **特殊二维码** | 2FA 密钥 / Wi-Fi 需手动在电脑端重新抄一遍 | **自动解析密钥 / 密码并即时复制到剪贴板** |
+| **Workflow** | Pull out phone ➜ Unlock ➜ Open camera ➜ Aim at screen ➜ Copy link ➜ Send to chat ➜ Open on PC (7 steps) | **Global Hotkey ➜ Drag select ➜ Browser opens instantly (1 step)** |
+| **Time Spent** | **~35 seconds** (breaks your focus and flow) | **~0.8 seconds** (instant, seamless, friction-free) |
+| **URL Cleanliness** | Carries ugly tracking params (`utm_*`, `spm_*`, `chksm`) | **Automatically strips tracking bloat for clean URLs** |
+| **Redirects** | Annoying intermediate interstitial warning pages | **Unwraps and bypasses redirects automatically** |
+| **Special QR Codes** | 2FA secrets or Wi-Fi passwords must be retyped | **Extracts secret / password straight to clipboard** |
 
 ---
 
-## ✨ 核心特性 (Features)
+## ✨ Features
 
-- ⚡ **极致轻量**：单文件绿色二进制包（约 4MB），内存占用 < 15MB，无 Electron 臃肿依赖，毫秒级冷启动。
-- 🛡️ **智能链接净化 (URL Sanitizer)**：自动剥离 `utm_*`、`spm_*`、`chksm`、`scene`、`fbclid` 等恶心跟踪尾巴；自动展开知乎、QQ 等中转重定向，还你纯净短链接。
-- 🧠 **多类型智能识别 (Smart Payloads)**：
-  - **网页链接**：自动清理参数 + 唤起系统默认浏览器打开 + 存入剪贴板。
-  - **Wi-Fi 配置**：自动解析 SSID，提取密码直接复制到剪贴板。
-  - **2FA 密钥**：自动解析 `otpauth://` 账户与 Secret，免手动敲长串字符。
-  - **普通文本 / 订单号**：直接复制到剪贴板，附带系统原生气泡提示。
-- 🖥️ **全平台支持**：
-  - **macOS**：原生接入 macOS 交互式准心选区，Retina 视网膜高清屏自适应。
-  - **Windows**：原生无缝支持 Windows 10/11 Snipping 机制与剪贴板极速解析。
-  - **Linux**：支持 Wayland (grim/slurp) 及 X11 (maim/scrot)。
+- ⚡ **Ultra-Lightweight**: Single static binary (~3–4MB), zero Electron bloat, <15MB RAM usage, sub-millisecond cold start.
+- 🛡️ **URL Sanitizer**: Automatically strips tracking parameters (`utm_*`, `spm_*`, `chksm`, `scene`, `fbclid`, `gclid`) and unwraps interstitial redirects.
+- 🧠 **Smart Payload Dispatching**:
+  - **Web URLs**: Cleans URL + Launches default browser in new tab + Copies to clipboard.
+  - **Wi-Fi QRs**: Parses SSID and copies password directly to clipboard.
+  - **2FA / OTP**: Extracts account and OTP secret token without typing.
+  - **Plain Text / Numbers**: Copies to clipboard with a native system toast notification.
+- 🖥️ **True Cross-Platform**:
+  - **macOS**: Native crosshair snippet with Retina HiDPI support.
+  - **Windows**: Seamless Windows 10/11 Snipping & clipboard extraction.
+  - **Linux**: Wayland (grim/slurp) and X11 (maim/scrot) support.
 
 ---
 
-## 🚀 快速上手 (Quick Start)
+## 🚀 Quick Start (Pick ONE of the options below)
 
-### 1. 下载预编译文件 (Releases)
-直接在 [Releases 页面](https://github.com/b1n9bna/NoPhoneQR/releases) 下载对应系统的单文件执行档即可使用：
-- macOS Apple Silicon (M1/M2/M3/M4): `nophoneqr-darwin-arm64`
-- macOS Intel: `nophoneqr-darwin-amd64`
-- Windows (x64): `nophoneqr-windows-amd64.exe`
-- Linux (x64): `nophoneqr-linux-amd64`
+> 💡 **Note**: You only need to choose **EITHER Option 1 OR Option 2**. For everyday users without programming tools, **Option 1** is strongly recommended (no Go installation required).
 
-### 2. 通过 Go 安装
-如果你已安装 Go 环境：
+### Option 1: Direct Download (Recommended, Zero Setup)
+Download the standalone binary for your system from the [Releases page](https://github.com/b1n9bna/NoPhoneQR/releases):
+- **macOS Apple Silicon (M1/M2/M3/M4)**: Download `nophoneqr-darwin-arm64`
+- **macOS Intel**: Download `nophoneqr-darwin-amd64`
+- **Windows (x64)**: Download `nophoneqr-windows-amd64.exe`
+- **Linux (x64)**: Download `nophoneqr-linux-amd64`
+
+*(macOS / Linux: Make it executable via `chmod +x nophoneqr*` and move to `/usr/local/bin/nophoneqr`)*
+
+### Option 2: Install via Go (For Developers)
+If you have Go 1.22+ installed:
 ```bash
 go install github.com/b1n9bna/nophoneqr@latest
 ```
 
 ---
 
-## 💻 使用方法 (Usage)
+## 💻 Usage
 
-### 场景一：直接在屏幕上框选扫码（最常用）
-在终端中输入，或绑定快捷键：
+### Scenario 1: Interactive On-Screen Snip (Most Common)
+In your terminal, or bound to a global shortcut:
 ```bash
 nophoneqr
 ```
-鼠标指针会立即变成选区十字标，拖动鼠标框选屏幕上的二维码：
-- 识别到链接：系统默认浏览器自动打开，并复制到剪贴板。
-- 按 `ESC` 可随时取消框选。
+Your cursor immediately turns into a crosshair. Drag a box over any QR code on screen:
+- The destination URL opens in your default browser and is copied to your clipboard.
+- Press `ESC` at any time to cancel.
 
-### 场景二：解析本地已有的图片文件
+### Scenario 2: Decode an Existing Image File
 ```bash
 nophoneqr screenshot.png
-# 或
+# or
 nophoneqr -f /path/to/qrcode.jpg
 ```
 
-### 场景三：生成二维码（附赠工具）
-在终端直接打印出 ASCII 二维码，或保存为 PNG：
+### Scenario 3: Generate QR Codes (Bonus Utility)
+Render ASCII QR codes right in your terminal, or save directly as PNG:
 ```bash
-# 终端中字符渲染
+# Render ASCII QR in terminal
 nophoneqr -g "https://github.com/b1n9bna/NoPhoneQR"
 
-# 保存为高清 PNG 图片
+# Save as high-res PNG image
 nophoneqr -g "https://example.com" -o qr.png
 ```
 
-### 常用选项
-| 参数 | 说明 |
+### CLI Flags
+| Flag | Description |
 | :--- | :--- |
-| `nophoneqr` | 默认交互式截屏识别 |
-| `nophoneqr <image>` | 识别指定图片路径中的二维码 |
-| `-no-open` | 识别链接后仅复制到剪贴板，不自动弹出浏览器 |
-| `-g <content>` | 生成终端 ASCII 字符二维码 |
-| `-o <file.png>` | 与 `-g` 搭配，将生成的二维码保存为 PNG |
-| `-v` | 查看当前版本号 |
+| `nophoneqr` | Default interactive on-screen snip & decode |
+| `nophoneqr <image>` | Decode QR code from specified image file |
+| `-no-open` | Copy decoded link to clipboard only (do not auto-open browser) |
+| `-g <content>` | Generate ASCII QR code in terminal |
+| `-o <file.png>` | Save generated QR code as a PNG file |
+| `-v` | Display current version |
 
 ---
 
-## ⌨️ 推荐：配置全局快捷键（打造极致体验）
+## ⌨️ Recommended: Set up a Global Hotkey
 
-建议将 `nophoneqr` 绑定一个全局快捷键（如 `Cmd + Shift + Q` 或 `Alt + Q`）：
+For the ultimate experience, bind `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`):
 
-### 🍏 macOS 用户推荐配置：
-1. **Raycast / Alfred 用户**：
-   - 在 Raycast 中添加一条 `Script Command`，直接调用 `nophoneqr`，并绑定快捷键 `Cmd + Shift + Q`。
-2. **系统原生「快捷指令 (Shortcuts)」**：
-   - 打开系统自带的 **快捷指令** App，新建快捷指令。
-   - 添加「运行 Shell 脚本」动作，填入 `/usr/local/bin/nophoneqr`。
-   - 在右侧边栏给该指令指定键盘快捷键（例如 `Cmd + Shift + Q`）。
+### 🍏 macOS Setup:
+1. **Raycast / Alfred**:
+   - Create a `Script Command` running `nophoneqr`, bound to `Cmd + Shift + Q`.
+2. **Native macOS Shortcuts**:
+   - Open the **Shortcuts** app, create a new shortcut.
+   - Add a "Run Shell Script" action with `/usr/local/bin/nophoneqr`.
+   - Set keyboard shortcut in the right panel (e.g. `Cmd + Shift + Q`).
 
-### 🪟 Windows 用户推荐配置：
-1. 下载 `nophoneqr-windows-amd64.exe`，重命名为 `nophoneqr.exe` 并放入如 `C:\Windows\` 或任意加入 PATH 的目录。
-2. 右键创建桌面快捷方式，在快捷方式属性的「快捷键」一栏按下 `Ctrl + Alt + Q`，即可随时一键呼出！
+### 🪟 Windows Setup:
+1. Download `nophoneqr-windows-amd64.exe`, rename to `nophoneqr.exe`, and place in a folder in your PATH (e.g. `C:\Windows\`).
+2. Right-click the executable to create a desktop shortcut, open Properties, and assign a shortcut key like `Ctrl + Alt + Q`!
 
 ---
 
-## 🛠️ 本地编译 (Build from Source)
+## 🛠️ Build from Source
 
 ```bash
 git clone https://github.com/b1n9bna/NoPhoneQR.git
 cd NoPhoneQR
 
-# 本地直接编译
+# Build local binary
 go build -o nophoneqr .
 
-# 运行单元测试
+# Run test suite
 go test -v ./...
 
-# 一键跨平台交叉编译 (macOS, Windows, Linux)
+# Cross-compile for all platforms (macOS, Windows, Linux)
 make cross-build
 ```
 
 ---
 
-## 📄 开源许可 (License)
+## 📄 License
 
-本项目遵循 [MIT License](LICENSE)。欢迎提交 Issue 与 Pull Request！
+This project is licensed under the [MIT License](LICENSE). Contributions and pull requests are welcome!
