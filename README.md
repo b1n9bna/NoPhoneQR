@@ -10,6 +10,9 @@
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
     <img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-brightgreen?style=flat-square" alt="Platform">
   </p>
+  <p align="center">
+    <img src="assets/demo.gif" alt="NoPhoneQR vs Traditional Comparison" width="880" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+  </p>
 </p>
 
 ---
@@ -17,22 +20,20 @@
 ## 💡 为什么需要 NoPhoneQR？(Why NoPhoneQR?)
 
 我们在电脑上办公或浏览网页时，经常遇到屏幕上的二维码：
-- 网页、文档、GitHub 项目中的链接二维码
+- 网页、技术文档、GitHub 项目中的链接二维码
 - 微信公众号、掘金、知乎文章中的参考资料或原文链接
 - 2FA 两步验证绑定的 `otpauth://` 密钥二维码
 - 咖啡厅、办公区 Wi-Fi 分享二维码
 
-### 传统做法（繁琐的 7 步）：
-1. 摸口袋掏出手机 📱
-2. 面容/指纹解锁手机
-3. 打开微信 / 相机
-4. 身体后倾、手举着手机对准电脑屏幕扫码 📷
-5. 在手机上打开页面并复制链接
-6. 发送给电脑端微信“文件传输助手”
-7. 在电脑上点开链接……
+### ⚡ 效率终极对决 (The Showdown)
 
-### 使用 NoPhoneQR（1 步搞定）：
-> **按下一个快捷键（或敲一下命令） ➜ 鼠标框选屏幕上的二维码 ➜ 浏览器立即在新标签页打开干净链接，同时已自动复制到剪贴板！** 🎉
+| 维度 | ❌ 传统手机扫码方式 | ⚡ 使用 NoPhoneQR |
+| :--- | :--- | :--- |
+| **操作流程** | 掏手机 ➜ 解锁 ➜ 找微信扫一扫 ➜ 对准屏幕 ➜ 复制 ➜ 发文件传输助手 ➜ 电脑点开 (7步) | **全局快捷键 ➜ 鼠标框选 ➜ 网页秒开 (1步)** |
+| **整体耗时** | **~35 秒**（繁琐费力，心流彻底被打断） | **~0.8 秒**（毫秒直达，丝滑从容） |
+| **链接纯净度** | 携带大量广告跟踪参数 (`utm_*`, `spm_*`, `chksm`) | **自动剥离所有跟踪尾巴，保护隐私** |
+| **重定向处理**| 遭遇知乎、QQ 等中转拦截跳转页 | **智能展开真实目标网址，直接跳过拦截** |
+| **特殊二维码** | 2FA 密钥 / Wi-Fi 需手动在电脑端重新抄一遍 | **自动解析密钥 / 密码并即时复制到剪贴板** |
 
 ---
 
