@@ -1,0 +1,18 @@
+# Binaries
+bin/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+nophoneqr
+
+# OS & Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tmp
+test.png
+tmp/
