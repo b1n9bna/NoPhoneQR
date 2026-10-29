@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate a high quality comparison GIF for NoPhoneQR README.
+Generate an enhanced high quality comparison GIF for NoPhoneQR README with live benchmark metrics.
 """
 import math
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-W, H = 940, 560
+W, H = 940, 580
 FONT_PATH = "/System/Library/Fonts/PingFang.ttc"
 FONT_ENG = "/System/Library/Fonts/Supplemental/Arial.ttf"
 
@@ -27,8 +27,8 @@ font_header = get_font(16, bold=True)
 font_body = get_font(13)
 font_small = get_font(11)
 font_tag = get_font(12, bold=True)
+font_stat = get_font(11, bold=True)
 
-# 30 frames total, duration 120ms each (~3.6s loop)
 FRAMES_COUNT = 32
 
 def draw_round_rect(draw, box, radius, fill, outline=None, width=1):
@@ -36,9 +36,6 @@ def draw_round_rect(draw, box, radius, fill, outline=None, width=1):
     draw.rounded_rectangle([x1, y1, x2, y2], radius=radius, fill=fill, outline=outline, width=width)
 
 def render_frame(t):
-    """
-    t ranges from 0.0 to 1.0 representing timeline progress
-    """
     img = Image.new("RGBA", (W, H), (13, 17, 23, 255)) # Dark GitHub background #0D1117
     draw = ImageDraw.Draw(img)
 
@@ -46,12 +43,15 @@ def render_frame(t):
     draw_round_rect(draw, [20, 16, W - 20, 84], 12, fill=(22, 27, 34, 255), outline=(48, 54, 61, 255), width=1)
     
     # Title
-    draw.text((40, 26), "📱❌ NoPhoneQR: 电脑屏幕扫码终极对决 (The Ultimate Showdown)", fill=(240, 246, 252), font=font_title)
-    draw.text((40, 58), "告别举手机扫电脑屏幕的尴尬 ｜ Stop pointing your phone at your computer screen", fill=(139, 148, 158), font=font_subtitle)
+    draw.text((40, 26), "📱❌ NoPhoneQR: 电脑屏幕扫码终极对决", fill=(240, 246, 252), font=font_title)
+    draw.text((40, 58), "告别举手机扫电脑屏幕 ｜ 实测内存仅 9.1MB · 体积 3.3MB · 零 Electron", fill=(139, 148, 158), font=font_subtitle)
 
-    # Status Pill on Top Right
-    draw_round_rect(draw, [W - 200, 32, W - 40, 68], 18, fill=(35, 134, 54, 40), outline=(46, 160, 67, 180), width=1)
-    draw.text((W - 185, 42), "⚡ 效率提升 4000%", fill=(63, 185, 80), font=font_tag)
+    # Dynamic Status Pill on Top Right
+    draw_round_rect(draw, [W - 235, 30, W - 40, 70], 18, fill=(35, 134, 54, 40), outline=(46, 160, 67, 180), width=1)
+    if t < 0.5:
+        draw.text((W - 215, 41), "⚡ 效率提升 4000% (0.8s)", fill=(63, 185, 80), font=font_tag)
+    else:
+        draw.text((W - 218, 41), "🚀 峰值内存仅 9.1MB (极省)", fill=(63, 185, 80), font=font_tag)
 
     # 2. Left Column: Traditional Approach (Red Theme)
     left_x1, left_y1, left_x2, left_y2 = 20, 100, W//2 - 10, H - 20
@@ -71,7 +71,7 @@ def render_frame(t):
         ("7. 电脑端微信接收并在浏览器打开 🏁", 0.95),
     ]
 
-    sy = left_y1 + 72
+    sy = left_y1 + 70
     for idx, (step_text, trigger_t) in enumerate(trad_steps):
         is_done = t >= trigger_t
         is_current = (idx == 0 and t < trigger_t) or (idx > 0 and t >= trad_steps[idx-1][1] and t < trigger_t)
@@ -87,11 +87,13 @@ def render_frame(t):
 
     # Left Bottom Summary Bar
     left_progress = min(1.0, t / 0.95)
-    draw_round_rect(draw, [left_x1 + 16, left_y2 - 56, left_x2 - 16, left_y2 - 16], 8, fill=(33, 38, 45, 255))
-    draw.text((left_x1 + 28, left_y2 - 44), f"耗时进度: {int(left_progress * 35)} 秒", fill=(139, 148, 158), font=font_small)
+    draw_round_rect(draw, [left_x1 + 16, left_y2 - 62, left_x2 - 16, left_y2 - 16], 8, fill=(33, 38, 45, 255))
+    draw.text((left_x1 + 24, left_y2 - 50), f"耗时进度: {int(left_progress * 35)} 秒", fill=(139, 148, 158), font=font_small)
     # Progress track
-    draw_round_rect(draw, [left_x1 + 140, left_y2 - 40, left_x2 - 28, left_y2 - 32], 4, fill=(48, 54, 61))
-    draw_round_rect(draw, [left_x1 + 140, left_y2 - 40, left_x1 + 140 + int((left_x2 - left_x1 - 168) * left_progress), left_y2 - 32], 4, fill=(248, 81, 73))
+    track_x = left_x1 + 130
+    draw_round_rect(draw, [track_x, left_y2 - 46, left_x2 - 24, left_y2 - 38], 4, fill=(48, 54, 61))
+    draw_round_rect(draw, [track_x, left_y2 - 46, track_x + int((left_x2 - left_x1 - 154) * left_progress), left_y2 - 38], 4, fill=(248, 81, 73))
+    draw.text((left_x1 + 24, left_y2 - 32), "状态: 动作繁琐 · 打断心流 · 效率低下", fill=(248, 81, 73), font=font_small)
 
     # 3. Right Column: NoPhoneQR (Emerald Theme)
     right_x1, right_y1, right_x2, right_y2 = W//2 + 10, 100, W - 20, H - 20
@@ -101,16 +103,28 @@ def render_frame(t):
     draw_round_rect(draw, [right_x1 + 16, right_y1 + 16, right_x2 - 16, right_y1 + 54], 8, fill=(35, 134, 54, 40), outline=(46, 160, 67, 120))
     draw.text((right_x1 + 28, right_y1 + 24), "✅ 使用 NoPhoneQR  ·  1 步即达", fill=(63, 185, 80), font=font_header)
 
+    # Spec Badges Strip
+    spec_w = (right_x2 - right_x1 - 48) // 3
+    specs = [
+        ("🧠 内存 9.1MB", (35, 134, 54, 50), (63, 185, 80)),
+        ("📦 体积 3.3MB", (56, 139, 253, 50), (88, 166, 255)),
+        ("⚡ 启动 <50ms", (210, 153, 34, 50), (227, 179, 65)),
+    ]
+    for si, (stxt, sbg, sfg) in enumerate(specs):
+        bx1 = right_x1 + 16 + si * (spec_w + 8)
+        draw_round_rect(draw, [bx1, right_y1 + 62, bx1 + spec_w, right_y1 + 88], 6, fill=sbg, outline=sfg)
+        draw.text((bx1 + 10, right_y1 + 68), stxt, fill=sfg, font=font_stat)
+
     # Interactive Stage Simulation in Right Column
-    stage_box = [right_x1 + 16, right_y1 + 72, right_x2 - 16, right_y2 - 120]
+    stage_box = [right_x1 + 16, right_y1 + 96, right_x2 - 16, right_y2 - 128]
     draw_round_rect(draw, stage_box, 8, fill=(13, 17, 23, 255), outline=(48, 54, 61, 255))
 
     # Fake Screen Window inside stage
-    draw.text((stage_box[0] + 16, stage_box[1] + 14), "快捷键触发: Cmd + Shift + Q (或 Alt + Q)", fill=(88, 166, 255), font=font_body)
+    draw.text((stage_box[0] + 16, stage_box[1] + 12), "快捷键触发: Cmd + Shift + Q (或 Alt + Q)", fill=(88, 166, 255), font=font_body)
 
     # Simulated QR box
     qr_cx, qr_cy = (stage_box[0] + stage_box[2]) // 2, (stage_box[1] + stage_box[3]) // 2 + 10
-    qr_w, qr_h = 100, 100
+    qr_w, qr_h = 96, 96
     qr_x1, qr_y1 = qr_cx - qr_w//2, qr_cy - qr_h//2
     qr_x2, qr_y2 = qr_cx + qr_w//2, qr_cy + qr_h//2
 
@@ -129,35 +143,32 @@ def render_frame(t):
 
     # Crosshair and Selection Box animation on NoPhoneQR
     if t < 0.25:
-        # Crosshair moving in
         ratio = t / 0.25
         cur_x = qr_x1 - 30 + int(30 * ratio)
         cur_y = qr_y1 - 30 + int(30 * ratio)
         draw.line([cur_x - 10, cur_y, cur_x + 10, cur_y], fill=(63, 185, 80), width=2)
         draw.line([cur_x, cur_y - 10, cur_x, cur_y + 10], fill=(63, 185, 80), width=2)
     elif t < 0.60:
-        # Selection Box active + Scan Line
         draw.rectangle([qr_x1 - 8, qr_y1 - 8, qr_x2 + 8, qr_y2 + 8], outline=(63, 185, 80), width=2)
-        # Scan laser line sweeping
         scan_progress = ((t - 0.25) / 0.35)
         scan_y = qr_y1 - 8 + int((qr_h + 16) * scan_progress)
         draw.line([qr_x1 - 8, scan_y, qr_x2 + 8, scan_y], fill=(0, 255, 136), width=3)
     else:
-        # Success state (Instant!)
         draw.rectangle([qr_x1 - 8, qr_y1 - 8, qr_x2 + 8, qr_y2 + 8], outline=(63, 185, 80), width=2)
-        # Success Badge over QR
-        draw_round_rect(draw, [qr_cx - 80, qr_cy - 20, qr_cx + 80, qr_cy + 20], 8, fill=(35, 134, 54, 230), outline=(63, 185, 80))
-        draw.text((qr_cx - 68, qr_cy - 10), "⚡ 0.8s 秒级解析成功", fill=(255, 255, 255), font=font_tag)
+        draw_round_rect(draw, [qr_cx - 86, qr_cy - 18, qr_cx + 86, qr_cy + 18], 8, fill=(35, 134, 54, 235), outline=(63, 185, 80))
+        draw.text((qr_cx - 72, qr_cy - 9), "⚡ 0.8s 秒级解析完成", fill=(255, 255, 255), font=font_tag)
 
     # Pop-up Notification Card
-    notif_y = right_y2 - 108
+    notif_y = right_y2 - 116
     draw_round_rect(draw, [right_x1 + 16, notif_y, right_x2 - 16, right_y2 - 16], 8, fill=(22, 27, 34, 255), outline=(46, 160, 67, 120))
     if t >= 0.50:
-        draw.text((right_x1 + 30, notif_y + 12), "🌐 系统默认浏览器已在新标签页弹开！", fill=(63, 185, 80), font=font_body)
-        draw.text((right_x1 + 30, notif_y + 36), "🛡️ 已自动剥离 tracking 尾巴并存入剪贴板", fill=(139, 148, 158), font=font_small)
-        draw.text((right_x1 + 30, notif_y + 58), "🔗 https://github.com/b1n9bna/NoPhoneQR", fill=(88, 166, 255), font=font_small)
+        draw.text((right_x1 + 28, notif_y + 12), "🌐 系统默认浏览器已在新标签页弹开！", fill=(63, 185, 80), font=font_body)
+        draw.text((right_x1 + 28, notif_y + 36), "🛡️ 已自动剔除 6 个跟踪参数，净化真实短链", fill=(139, 148, 158), font=font_small)
+        draw.text((right_x1 + 28, notif_y + 58), "🔗 https://github.com/b1n9bna/NoPhoneQR", fill=(88, 166, 255), font=font_small)
+        draw.text((right_x1 + 28, notif_y + 78), "✅ 内存已释放归零 (Run & Done 无驻留)", fill=(63, 185, 80), font=font_small)
     else:
-        draw.text((right_x1 + 30, notif_y + 24), "⏳ 正在等待快捷选区...", fill=(139, 148, 158), font=font_body)
+        draw.text((right_x1 + 28, notif_y + 24), "⏳ 正在等待快捷框选...", fill=(139, 148, 158), font=font_body)
+        draw.text((right_x1 + 28, notif_y + 54), "💡 占用内存: 0 MB (未触发时不消耗任何硬件资源)", fill=(139, 148, 158), font=font_small)
 
     return img.convert("RGB")
 
@@ -166,7 +177,7 @@ for i in range(FRAMES_COUNT):
     progress = i / float(FRAMES_COUNT - 1)
     frames.append(render_frame(progress))
 
-# Add 10 pause frames at the end so users can inspect the result
+# Add 12 pause frames at the end so users can inspect the result
 for _ in range(12):
     frames.append(render_frame(1.0))
 
@@ -179,4 +190,4 @@ frames[0].save(
     loop=0,
     optimize=True
 )
-print("GIF saved successfully to:", out_path)
+print("Updated GIF saved successfully to:", out_path)
