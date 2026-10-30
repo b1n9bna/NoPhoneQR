@@ -18,7 +18,7 @@ When reading technical docs, articles, or browsing the web on a computer, you of
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Download Pre-built Binary
 
@@ -40,7 +40,7 @@ go install github.com/b1n9bna/nophoneqr@latest
 
 ---
 
-## ⌨️ Recommended: Set Up Global Hotkeys
+## Recommended: Set Up Global Hotkeys
 
 Binding `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`) provides the smoothest workflow:
 
@@ -59,7 +59,7 @@ Binding `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`) pro
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### 1. Interactive Screen Scan (Default)
 Run directly from terminal or via your hotkey:
@@ -96,7 +96,7 @@ nophoneqr -g "https://example.com" -o qr.png
 
 ---
 
-## ✨ Features
+## Features
 
 - **On-Screen Selection**: Drag and select any QR code directly on your screen without needing a phone or secondary device.
 - **URL Parameter Sanitization**: Automatically strips common tracking and marketing bloat (`utm_*`, `spm_*`, `chksm`, `scene`, `fbclid`, etc.) to keep URLs clean.
@@ -110,7 +110,7 @@ nophoneqr -g "https://example.com" -o qr.png
 
 ---
 
-## 📊 Performance & Resource Benchmarks
+## Performance & Resource Benchmarks
 
 Benchmarked on macOS 14 (Sonoma) using `/usr/bin/time -l` through a complete screen scan and decode cycle:
 
@@ -141,7 +141,7 @@ $ /usr/bin/time -l nophoneqr -no-open test_qr.png
 
 ---
 
-## 🛠️ Build & Test
+## Build & Test
 
 ```bash
 git clone https://github.com/b1n9bna/NoPhoneQR.git
@@ -156,6 +156,6 @@ go test -v ./...
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
