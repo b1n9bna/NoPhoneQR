@@ -18,7 +18,85 @@ When reading technical docs, articles, or browsing the web on a computer, you of
 
 ---
 
-## Features
+## 🚀 Quick Start
+
+### Option 1: Download Pre-built Binary
+
+Download the executable for your platform from the [Releases page](https://github.com/b1n9bna/NoPhoneQR/releases):
+
+- **macOS (Apple Silicon)**: `nophoneqr-darwin-arm64`
+- **macOS (Intel)**: `nophoneqr-darwin-amd64`
+- **Windows (x64)**: `nophoneqr-windows-amd64.exe`
+- **Linux (x64)**: `nophoneqr-linux-amd64`
+
+*(macOS / Linux users grant execution permissions: `chmod +x nophoneqr*`, and move it to your PATH such as `/usr/local/bin/nophoneqr`)*
+
+### Option 2: Install via Go
+
+If Go (1.22+) is installed locally:
+```bash
+go install github.com/b1n9bna/nophoneqr@latest
+```
+
+---
+
+## ⌨️ Recommended: Set Up Global Hotkeys
+
+Binding `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`) provides the smoothest workflow:
+
+### macOS
+- **Apple Shortcuts**:
+  1. Open the built-in "Shortcuts" app and create a new shortcut;
+  2. Add a "Run Shell Script" action with `/usr/local/bin/nophoneqr`;
+  3. Assign a keyboard shortcut in the right sidebar (e.g., `Cmd + Shift + Q`).
+- **Raycast / Alfred**:
+  Create a Script Command calling `nophoneqr` directly and assign a hotkey.
+
+### Windows
+1. Place `nophoneqr.exe` in a permanent directory (e.g. `C:\Program Files\NoPhoneQR\` or your user folder);
+2. Create a desktop shortcut, right-click and choose "Properties";
+3. In the "Shortcut key" field, press your desired combination (e.g., `Ctrl + Alt + Q`), then click OK.
+
+---
+
+## 📖 Usage
+
+### 1. Interactive Screen Scan (Default)
+Run directly from terminal or via your hotkey:
+```bash
+nophoneqr
+```
+The mouse pointer turns into a crosshair. Drag to select the on-screen QR code; press `ESC` to cancel.
+
+### 2. Scan Local Image
+```bash
+nophoneqr /path/to/qrcode.png
+```
+
+### 3. Generate QR Codes (Auxiliary Utility)
+Print a QR code as ANSI characters in the terminal, or save to a PNG file:
+```bash
+# Print to terminal console
+nophoneqr -g "https://example.com"
+
+# Save as image file
+nophoneqr -g "https://example.com" -o qr.png
+```
+
+### Command Flags
+
+| Flag | Description |
+| :--- | :--- |
+| `nophoneqr` | Default interactive screen selection |
+| `nophoneqr <image>` | Scan QR code from a specified image file |
+| `-no-open` | Copy URL to clipboard without auto-opening in browser |
+| `-g <content>` | Generate ANSI character QR code in terminal |
+| `-o <file.png>` | Used with `-g` to export QR code to a PNG image |
+| `-v` | Display version information |
+
+---
+
+## ✨ Features
 
 - **On-Screen Selection**: Drag and select any QR code directly on your screen without needing a phone or secondary device.
 - **URL Parameter Sanitization**: Automatically strips common tracking and marketing bloat (`utm_*`, `spm_*`, `chksm`, `scene`, `fbclid`, etc.) to keep URLs clean.
@@ -32,7 +110,7 @@ When reading technical docs, articles, or browsing the web on a computer, you of
 
 ---
 
-## Performance & Resource Benchmarks
+## 📊 Performance & Resource Benchmarks
 
 Benchmarked on macOS 14 (Sonoma) using `/usr/bin/time -l` through a complete screen scan and decode cycle:
 
@@ -63,85 +141,7 @@ $ /usr/bin/time -l nophoneqr -no-open test_qr.png
 
 ---
 
-## Getting Started
-
-### Method 1: Download Pre-compiled Binary
-
-Download the executable for your operating system from the [Releases page](https://github.com/b1n9bna/NoPhoneQR/releases):
-
-- **macOS (Apple Silicon)**: `nophoneqr-darwin-arm64`
-- **macOS (Intel)**: `nophoneqr-darwin-amd64`
-- **Windows (x64)**: `nophoneqr-windows-amd64.exe`
-- **Linux (x64)**: `nophoneqr-linux-amd64`
-
-*(For macOS / Linux: make the binary executable via `chmod +x nophoneqr*`, and move it to a directory in your PATH such as `/usr/local/bin/nophoneqr`)*
-
-### Method 2: Install via Go
-
-If you have Go 1.22+ installed:
-```bash
-go install github.com/b1n9bna/nophoneqr@latest
-```
-
----
-
-## Usage
-
-### 1. Screen Selection (Default)
-Run the command directly (or trigger via global hotkey):
-```bash
-nophoneqr
-```
-Your cursor will turn into a crosshair. Drag to select the QR code on your screen; press `ESC` anytime to cancel.
-
-### 2. Decode a Local Image File
-```bash
-nophoneqr /path/to/qrcode.png
-```
-
-### 3. Generate QR Code (Helper Utility)
-Print an ASCII QR code in your terminal, or save it as a PNG image:
-```bash
-# Print to terminal
-nophoneqr -g "https://example.com"
-
-# Save as PNG image
-nophoneqr -g "https://example.com" -o qr.png
-```
-
-### Command Options
-
-| Flag | Description |
-| :--- | :--- |
-| `nophoneqr` | Default interactive screen capture mode |
-| `nophoneqr <image>` | Decode a QR code from a specified image file |
-| `-no-open` | Copy URL to clipboard only without opening browser |
-| `-g <content>` | Generate an ASCII QR code in the terminal |
-| `-o <file.png>` | Save the generated QR code to a PNG file |
-| `-v` | Display version information |
-
----
-
-## Recommended: Global Hotkey Setup
-
-Binding `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`) provides the smoothest workflow:
-
-### macOS
-- **System Shortcuts**:
-  1. Open the built-in **Shortcuts** app and create a new shortcut;
-  2. Add a **Run Shell Script** action with `/usr/local/bin/nophoneqr`;
-  3. Assign a keyboard shortcut in the right sidebar (e.g. `Cmd + Shift + Q`).
-- **Raycast / Alfred**:
-  Create a Script Command that executes `nophoneqr` and bind it to a hotkey.
-
-### Windows
-1. Place `nophoneqr.exe` in a permanent directory (such as `C:\Program Files\NoPhoneQR\` or your user directory);
-2. Create a desktop shortcut, right-click and choose **Properties**;
-3. In the **Shortcut key** field, press your desired combination (e.g. `Ctrl + Alt + Q`), then click OK.
-
----
-
-## Local Build
+## 🛠️ Build & Test
 
 ```bash
 git clone https://github.com/b1n9bna/NoPhoneQR.git
@@ -156,6 +156,6 @@ go test -v ./...
 
 ---
 
-## License
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
