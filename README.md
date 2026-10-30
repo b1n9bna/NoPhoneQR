@@ -18,7 +18,7 @@
 
 ---
 
-## 快速上手
+## 🚀 快速上手
 
 ### 方式一：下载预编译可执行文件
 
@@ -40,7 +40,7 @@ go install github.com/b1n9bna/nophoneqr@latest
 
 ---
 
-## 推荐：配置全局快捷键
+## ⌨️ 推荐：配置全局快捷键
 
 将 `nophoneqr` 绑定到全局快捷键（如 `Cmd + Shift + Q` 或 `Alt + Q`）使用体验更佳：
 
@@ -59,7 +59,7 @@ go install github.com/b1n9bna/nophoneqr@latest
 
 ---
 
-## 使用说明
+## 📖 使用说明
 
 ### 1. 屏幕框选识别（默认）
 直接运行命令（或通过全局快捷键呼出）：
@@ -96,7 +96,7 @@ nophoneqr -g "https://example.com" -o qr.png
 
 ---
 
-## 主要功能
+## ✨ 主要功能
 
 - **屏幕框选识别**：直接在屏幕上划选二维码区域即可完成识别，无需外接设备或手机辅助。
 - **链接参数清理**：自动剥离常见的跟踪与推广参数（如 `utm_*`、`spm_*`、`chksm`、`scene`、`fbclid` 等），保持链接整洁。
@@ -110,7 +110,7 @@ nophoneqr -g "https://example.com" -o qr.png
 
 ---
 
-## 性能与资源实测
+## 📊 性能与资源实测
 
 在 macOS 14 (Sonoma) 系统上通过 `/usr/bin/time -l` 测试完整识别流程：
 
@@ -141,7 +141,7 @@ $ /usr/bin/time -l nophoneqr -no-open test_qr.png
 
 ---
 
-## 本地编译与测试
+## 🛠️ 本地编译与测试
 
 ```bash
 git clone https://github.com/b1n9bna/NoPhoneQR.git
@@ -156,6 +156,6 @@ go test -v ./...
 
 ---
 
-## 许可证
+## 📄 许可证
 
 本项目采用 [MIT License](LICENSE) 授权。
