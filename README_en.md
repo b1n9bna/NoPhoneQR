@@ -1,5 +1,15 @@
 # NoPhoneQR
 
+<p align="center">
+  <a href="https://github.com/b1n9bna/NoPhoneQR/releases"><img src="https://img.shields.io/github/v/release/b1n9bna/NoPhoneQR?style=flat-square" alt="Release"></a>
+  <img src="https://img.shields.io/badge/RAM_Peak-9.1_MB_(Benchmarked)-success?style=flat-square&logo=speedtest&logoColor=white" alt="Peak RAM">
+  <img src="https://img.shields.io/badge/Binary_Size-3.3_MB-blue?style=flat-square&logo=files" alt="Binary Size">
+  <img src="https://img.shields.io/badge/Cold_Start-<50_ms-orange?style=flat-square&logo=lightning" alt="Cold Start">
+  <img src="https://img.shields.io/badge/Pure_Go-100%25_(Zero_CGO)-blueviolet?style=flat-square&logo=go" alt="Pure Go">
+  <img src="https://img.shields.io/badge/Platform-macOS_|_Windows_|_Linux-brightgreen?style=flat-square" alt="Platform">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
+</p>
+
 A desktop screen QR code scanner and URL sanitizer written in Go.
 
 When reading technical docs, articles, or browsing the web on a computer, you often encounter on-screen QR codes. NoPhoneQR allows you to select an on-screen QR code using a hotkey or command line, strips tracking parameters, and opens the clean URL in your browser or copies it to your clipboard—saving you the hassle of using a physical phone to scan your computer screen.

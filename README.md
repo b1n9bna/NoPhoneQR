@@ -1,5 +1,15 @@
 # NoPhoneQR
 
+<p align="center">
+  <a href="https://github.com/b1n9bna/NoPhoneQR/releases"><img src="https://img.shields.io/github/v/release/b1n9bna/NoPhoneQR?style=flat-square" alt="Release"></a>
+  <img src="https://img.shields.io/badge/RAM_Peak-9.1_MB_(实测)-success?style=flat-square&logo=speedtest&logoColor=white" alt="Peak RAM">
+  <img src="https://img.shields.io/badge/Binary_Size-3.3_MB-blue?style=flat-square&logo=files" alt="Binary Size">
+  <img src="https://img.shields.io/badge/Cold_Start-<50_ms-orange?style=flat-square&logo=lightning" alt="Cold Start">
+  <img src="https://img.shields.io/badge/Pure_Go-100%25_(Zero_CGO)-blueviolet?style=flat-square&logo=go" alt="Pure Go">
+  <img src="https://img.shields.io/badge/Platform-macOS_|_Windows_|_Linux-brightgreen?style=flat-square" alt="Platform">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
+</p>
+
 桌面端屏幕二维码框选识别与链接处理工具（Go 实现）。
 
 在电脑浏览网页、技术文档或阅读文章时，常会遇到屏幕上的二维码。NoPhoneQR 可以直接通过快捷键或命令框选屏幕区域识别二维码，自动过滤常见的追踪参数，并在浏览器中打开或复制到剪贴板，省去掏手机扫码再把链接转发回电脑的繁琐步骤。
