@@ -1,127 +1,42 @@
-<p align="center">
-  <h1 align="center">📱❌ NoPhoneQR</h1>
-  <p align="center">
-    <strong>Stop pointing your phone at your computer screen.</strong><br>
-    Instant on-screen QR code scanner, URL sanitizer & automatic browser opener for desktop.
-  </p>
-  <p align="center">
-    <a href="README.md">简体中文</a> •
-    <a href="README_en.md"><b>English</b></a>
-  </p>
-  <p align="center">
-    <a href="https://github.com/b1n9bna/NoPhoneQR/releases"><img src="https://img.shields.io/github/v/release/b1n9bna/NoPhoneQR?style=flat-square" alt="Release"></a>
-    <img src="https://img.shields.io/badge/RAM_Peak-9.1_MB_(Benchmarked)-success?style=flat-square&logo=speedtest&logoColor=white" alt="Peak RAM">
-    <img src="https://img.shields.io/badge/Binary_Size-3.3_MB-blue?style=flat-square&logo=files" alt="Binary Size">
-    <img src="https://img.shields.io/badge/Cold_Start-<50_ms-orange?style=flat-square&logo=lightning" alt="Cold Start">
-    <img src="https://img.shields.io/badge/Electron-0%25_(Pure_Go)-blueviolet?style=flat-square" alt="Zero Electron">
-    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-brightgreen?style=flat-square" alt="Platform">
-  </p>
-  <p align="center">
-    <img src="assets/demo.gif" alt="NoPhoneQR vs Traditional Comparison" width="880" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-  </p>
-</p>
+# NoPhoneQR
+
+A desktop screen QR code scanner and URL sanitizer written in Go.
+
+When reading technical docs, articles, or browsing the web on a computer, you often encounter on-screen QR codes. NoPhoneQR allows you to select an on-screen QR code using a hotkey or command line, strips tracking parameters, and opens the clean URL in your browser or copies it to your clipboard—saving you the hassle of using a physical phone to scan your computer screen.
+
+[简体中文](README.md) • [English](README_en.md)
 
 ---
 
-## 💡 Why NoPhoneQR?
+## Features
 
-Whenever you encounter a QR code on your computer screen:
-- Links in documentation, articles, or GitHub repositories
-- Login / 2FA two-factor authentication setup (`otpauth://`)
-- Wi-Fi credentials shared on screen
-- Short links in social media or slide presentations
-
-### ⚡ The Ultimate Showdown
-
-| Dimension | ❌ Traditional Phone Method | ⚡ With NoPhoneQR |
-| :--- | :--- | :--- |
-| **Workflow** | Pull out phone ➜ Unlock ➜ Open camera ➜ Aim at screen ➜ Copy link ➜ Send to chat ➜ Open on PC (7 steps) | **Global Hotkey ➜ Drag select ➜ Browser opens instantly (1 step)** |
-| **Time Spent** | **~35 seconds** (breaks your focus and flow) | **~0.8 seconds** (instant, seamless, friction-free) |
-| **URL Cleanliness** | Carries ugly tracking params (`utm_*`, `spm_*`, `chksm`) | **Automatically strips tracking bloat for clean URLs** |
-| **Redirects** | Annoying intermediate interstitial warning pages | **Unwraps and bypasses redirects automatically** |
-| **Special QR Codes** | 2FA secrets or Wi-Fi passwords must be retyped | **Extracts secret / password straight to clipboard** |
+- **On-Screen Selection**: Drag and select any QR code directly on your screen without needing a phone or secondary device.
+- **URL Parameter Sanitization**: Automatically strips common tracking and marketing bloat (`utm_*`, `spm_*`, `chksm`, `scene`, `fbclid`, etc.) to keep URLs clean.
+- **Redirect Unwrapping**: Unwraps intermediate interstitial redirect pages (such as Zhihu and QQ redirection links) directly to the target destination.
+- **Multi-Format Support**:
+  - **Web URLs**: Sanitizes parameters, copies to clipboard, and opens in your default browser.
+  - **Wi-Fi Config**: Parses network SSID and extracts password directly to clipboard.
+  - **Two-Factor Auth (2FA)**: Parses `otpauth://` QR codes and extracts the Secret token.
+  - **Plain Text**: Copies decoded text straight to system clipboard.
+- **Lightweight & Portable**: Written in pure Go with zero CGO dependencies. Compiles to a single standalone binary without requiring Python, OpenCV, or Node.js runtime environments.
 
 ---
 
-## 📊 Hardware & Resource Benchmarks (Real-world Measured)
+## Getting Started
 
-> [!TIP]
-> Tired of bloated Electron desktop utilities chewing up 300MB+ of RAM just to take a quick screenshot? **NoPhoneQR is written in 100% pure Go with uncompromising restraint.**
+### Method 1: Download Pre-compiled Binary
 
-Measured on **macOS 14 (Sonoma)** using `/usr/bin/time -l` through a complete scan-decode-dispatch lifecycle:
+Download the executable for your operating system from the [Releases page](https://github.com/b1n9bna/NoPhoneQR/releases):
 
-| Metric | Typical Electron-based Tools | Python + OpenCV Scripts | ⚡ **NoPhoneQR (Native Go)** |
-| :--- | :--- | :--- | :--- |
-| **Binary / Dist Size** | 150 MB ~ 300 MB | ~200 MB (with venv) | **3.3 MB** (Windows .exe is 4.7 MB) |
-| **Peak Resident RAM (RSS)**| 250 MB ~ 450 MB | 80 MB ~ 180 MB | **9.1 MB** *(Measured: 9,613,312 bytes)* |
-| **Idle Background RAM** | 100 MB ~ 200 MB persistent | Requires background daemon | **0 MB** (Run & Done: zero RAM residue) |
-| **Cold Start + Decode Time**| 1.5s ~ 3.5s | 0.8s ~ 2.0s | **< 50 milliseconds (0.05s)** |
-| **Runtime Dependencies** | Node.js, Chromium, WebView | Python 3, pip, OpenCV, C++ | **ZERO** (Single portable binary) |
-| **CGO / Dynamic Libraries** | OS-specific C bindings | Requires libzbar / libGL | **Zero CGO (Pure Go ZXing)** |
+- **macOS (Apple Silicon)**: `nophoneqr-darwin-arm64`
+- **macOS (Intel)**: `nophoneqr-darwin-amd64`
+- **Windows (x64)**: `nophoneqr-windows-amd64.exe`
+- **Linux (x64)**: `nophoneqr-linux-amd64`
 
-<details>
-<summary>🔍 Click to view raw macOS benchmark console output</summary>
+*(For macOS / Linux: make the binary executable via `chmod +x nophoneqr*`, and move it to a directory in your PATH such as `/usr/local/bin/nophoneqr`)*
 
-```bash
-$ /usr/bin/time -l nophoneqr -no-open test_qr.png
+### Method 2: Install via Go
 
-✅ QR Code Recognized successfully!
-  • Type:   url
-  • Result: https://github.com/b1n9bna/NoPhoneQR
-  • Action: Copied to clipboard
-
-        0.28 real         0.06 user         0.07 sys
-             9613312  maximum resident set size  <-- Peak RSS: 9.1 MB
-             2228224  peak memory footprint      <-- Core footprint: 2.1 MB
-```
-</details>
-
----
-
-## 🛡️ URL Sanitizer in Action
-
-Most web platforms append multi-line tracking queries to QR codes. NoPhoneQR strips them instantly:
-
-| Source | Raw Scanned Ugly URL | ⚡ NoPhoneQR Sanitized URL |
-| :--- | :--- | :--- |
-| **WeChat Articles** | `mp.weixin.qq.com/s/xxx?chksm=abc&scene=21&version=1.0` | `mp.weixin.qq.com/s/xxx` |
-| **Bilibili Video** | `bilibili.com/video/BVxxx?spm_id_from=333.999&vd_source=abc` | `bilibili.com/video/BVxxx` |
-| **Zhihu Redirect** | `link.zhihu.com/?target=https%3A%2F%2Fgithub.com%2F...` | `github.com/...` *(Bypasses warning redirect)* |
-| **Ad / Marketing** | `example.com/item?utm_source=twitter&utm_medium=cpc&fbclid=xyz` | `example.com/item` |
-
----
-
-## ✨ Features
-
-- ⚡ **Ultra-Lightweight**: Single static binary (~3.3MB), zero Electron bloat, <10MB peak RAM, sub-millisecond cold start.
-- 🛡️ **URL Sanitizer**: Automatically strips tracking parameters (`utm_*`, `spm_*`, `chksm`, `scene`, `fbclid`, `gclid`) and unwraps interstitial redirects.
-- 🧠 **Smart Payload Dispatching**:
-  - **Web URLs**: Cleans URL + Launches default browser in new tab + Copies to clipboard.
-  - **Wi-Fi QRs**: Parses SSID and copies password directly to clipboard.
-  - **2FA / OTP**: Extracts account and OTP secret token without typing.
-  - **Plain Text / Numbers**: Copies to clipboard with a native system toast notification.
-- 🖥️ **True Cross-Platform**:
-  - **macOS**: Native crosshair snippet with Retina HiDPI support.
-  - **Windows**: Seamless Windows 10/11 Snipping & clipboard extraction.
-  - **Linux**: Wayland (grim/slurp) and X11 (maim/scrot) support.
-
----
-
-## 🚀 Quick Start (Pick ONE of the options below)
-
-> 💡 **Note**: You only need to choose **EITHER Option 1 OR Option 2**. For everyday users without programming tools, **Option 1** is strongly recommended (no Go installation required).
-
-### Option 1: Direct Download (Recommended, Zero Setup)
-Download the standalone binary for your system from the [Releases page](https://github.com/b1n9bna/NoPhoneQR/releases):
-- **macOS Apple Silicon (M1/M2/M3/M4)**: Download `nophoneqr-darwin-arm64`
-- **macOS Intel**: Download `nophoneqr-darwin-amd64`
-- **Windows (x64)**: Download `nophoneqr-windows-amd64.exe`
-- **Linux (x64)**: Download `nophoneqr-linux-amd64`
-
-*(macOS / Linux: Make it executable via `chmod +x nophoneqr*` and move to `/usr/local/bin/nophoneqr`)*
-
-### Option 2: Install via Go (For Developers)
 If you have Go 1.22+ installed:
 ```bash
 go install github.com/b1n9bna/nophoneqr@latest
@@ -129,82 +44,77 @@ go install github.com/b1n9bna/nophoneqr@latest
 
 ---
 
-## 💻 Usage
+## Usage
 
-### Scenario 1: Interactive On-Screen Snip (Most Common)
-In your terminal, or bound to a global shortcut:
+### 1. Screen Selection (Default)
+Run the command directly (or trigger via global hotkey):
 ```bash
 nophoneqr
 ```
-Your cursor immediately turns into a crosshair. Drag a box over any QR code on screen:
-- The destination URL opens in your default browser and is copied to your clipboard.
-- Press `ESC` at any time to cancel.
+Your cursor will turn into a crosshair. Drag to select the QR code on your screen; press `ESC` anytime to cancel.
 
-### Scenario 2: Decode an Existing Image File
+### 2. Decode a Local Image File
 ```bash
-nophoneqr screenshot.png
-# or
-nophoneqr -f /path/to/qrcode.jpg
+nophoneqr /path/to/qrcode.png
 ```
 
-### Scenario 3: Generate QR Codes (Bonus Utility)
-Render ASCII QR codes right in your terminal, or save directly as PNG:
+### 3. Generate QR Code (Helper Utility)
+Print an ASCII QR code in your terminal, or save it as a PNG image:
 ```bash
-# Render ASCII QR in terminal
-nophoneqr -g "https://github.com/b1n9bna/NoPhoneQR"
+# Print to terminal
+nophoneqr -g "https://example.com"
 
-# Save as high-res PNG image
+# Save as PNG image
 nophoneqr -g "https://example.com" -o qr.png
 ```
 
-### CLI Flags
+### Command Options
+
 | Flag | Description |
 | :--- | :--- |
-| `nophoneqr` | Default interactive on-screen snip & decode |
-| `nophoneqr <image>` | Decode QR code from specified image file |
-| `-no-open` | Copy decoded link to clipboard only (do not auto-open browser) |
-| `-g <content>` | Generate ASCII QR code in terminal |
-| `-o <file.png>` | Save generated QR code as a PNG file |
-| `-v` | Display current version |
+| `nophoneqr` | Default interactive screen capture mode |
+| `nophoneqr <image>` | Decode a QR code from a specified image file |
+| `-no-open` | Copy URL to clipboard only without opening browser |
+| `-g <content>` | Generate an ASCII QR code in the terminal |
+| `-o <file.png>` | Save the generated QR code to a PNG file |
+| `-v` | Display version information |
 
 ---
 
-## ⌨️ Recommended: Set up a Global Hotkey
+## Recommended: Global Hotkey Setup
 
-For the ultimate experience, bind `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`):
+Binding `nophoneqr` to a global hotkey (e.g. `Cmd + Shift + Q` or `Alt + Q`) provides the smoothest workflow:
 
-### 🍏 macOS Setup:
-1. **Raycast / Alfred**:
-   - Create a `Script Command` running `nophoneqr`, bound to `Cmd + Shift + Q`.
-2. **Native macOS Shortcuts**:
-   - Open the **Shortcuts** app, create a new shortcut.
-   - Add a "Run Shell Script" action with `/usr/local/bin/nophoneqr`.
-   - Set keyboard shortcut in the right panel (e.g. `Cmd + Shift + Q`).
+### macOS
+- **System Shortcuts**:
+  1. Open the built-in **Shortcuts** app and create a new shortcut;
+  2. Add a **Run Shell Script** action with `/usr/local/bin/nophoneqr`;
+  3. Assign a keyboard shortcut in the right sidebar (e.g. `Cmd + Shift + Q`).
+- **Raycast / Alfred**:
+  Create a Script Command that executes `nophoneqr` and bind it to a hotkey.
 
-### 🪟 Windows Setup:
-1. Download `nophoneqr-windows-amd64.exe`, rename to `nophoneqr.exe`, and place in a folder in your PATH (e.g. `C:\Windows\`).
-2. Right-click the executable to create a desktop shortcut, open Properties, and assign a shortcut key like `Ctrl + Alt + Q`!
+### Windows
+1. Place `nophoneqr.exe` in a permanent directory (such as `C:\Program Files\NoPhoneQR\` or your user directory);
+2. Create a desktop shortcut, right-click and choose **Properties**;
+3. In the **Shortcut key** field, press your desired combination (e.g. `Ctrl + Alt + Q`), then click OK.
 
 ---
 
-## 🛠️ Build from Source
+## Local Build
 
 ```bash
 git clone https://github.com/b1n9bna/NoPhoneQR.git
 cd NoPhoneQR
 
-# Build local binary
+# Build binary
 go build -o nophoneqr .
 
-# Run test suite
+# Run tests
 go test -v ./...
-
-# Cross-compile for all platforms (macOS, Windows, Linux)
-make cross-build
 ```
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the [MIT License](LICENSE). Contributions and pull requests are welcome!
+This project is licensed under the [MIT License](LICENSE).
